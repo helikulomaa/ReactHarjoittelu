@@ -2,6 +2,21 @@
   text-align: center;
 }
 
+.postsContainer {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
+.posts {
+width: 20em;
+text-align: left;
+}
+
+.posts h4{
+color: green;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
