@@ -3,6 +3,7 @@ import Laskuri from './laskuri'
 import Viesti from './viesti'
 import React, {useState} from 'react'
 import Posts from './posts'
+import CustomerList from './CustomerList'
 
 const App = () => { // Toinen tapa on function App (), mutta tämä on tavallisempi tapa nykyään
   
@@ -18,6 +19,8 @@ const App = () => { // Toinen tapa on function App (), mutta tämä on tavallise
   return (
     <div className="App">
       <h1>Hello from React!</h1>
+
+      <CustomerList />
 
 {/* jos showlakuri on true, rivi näytetään */}
       {showLaskuri && <Laskuri huomio={huomio}/>} 

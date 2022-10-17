@@ -6,15 +6,30 @@
   display: flex;
   justify-content: center;
   flex-flow: row;
+
+}
+
+.customerDetails {
+  background-color: lightgoldenrodyellow;
+  border-style: double;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  padding-left: 10%;
 }
 
 .posts {
 width: 20em;
 text-align: left;
+background-color: beige;
+margin: 1%;
+padding: 2%;
+border-radius: 20px;
 }
 
 .posts h4{
-color: green;
+color: rgb(92, 89, 89);
 }
 
 .App-logo {
