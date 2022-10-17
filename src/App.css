@@ -2,11 +2,40 @@
   text-align: center;
 }
 
+.neg {
+  color: red;
+  background: white;
+  font-size: 36px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10%;
+  width: 70%;
+  margin-left: 15%;
+}
+
+.pos {
+  color: green;
+  background: white;
+  font-size: 36px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10%;
+  width: 70%;
+  margin-left: 15%;
+}
+
 .postsContainer {
   display: flex;
   justify-content: center;
   flex-flow: row;
-
 }
 
 .customerDetails {

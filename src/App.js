@@ -4,13 +4,17 @@ import Viesti from './viesti'
 import React, {useState} from 'react'
 import Posts from './posts'
 import CustomerList from './CustomerList'
+import Message from './Message'
 
 const App = () => { // Toinen tapa on function App (), mutta tämä on tavallisempi tapa nykyään
   
   // App-komponentin tila:
   const [showLaskuri, setShowLaskuri] = useState(false)
-
   const [showPosts, setShowPosts] = useState(false)
+  // statet messagen näyttämistä varten:
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+  const [isPositive, setIsPositive] = useState(false)
 
   const huomio = () => {
     alert("Huomio!")
@@ -20,7 +24,9 @@ const App = () => { // Toinen tapa on function App (), mutta tämä on tavallise
     <div className="App">
       <h1>Hello from React!</h1>
 
-      <CustomerList />
+      {showMessage && <Message message={message} isPositive={isPositive} /> }
+
+      <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
 
 {/* jos showlakuri on true, rivi näytetään */}
       {showLaskuri && <Laskuri huomio={huomio}/>} 
