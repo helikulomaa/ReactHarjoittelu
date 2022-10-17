@@ -7,4 +7,10 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-export default { getAll }
+// newCustomer on paramentri, jonka ympärillä voisi olla sulkeet. Kun parametreja on yksi ei sulkeita tarvita. Jos on useampi tai ei yhtään silloin tarvitaan.
+
+const create = newCustomer => {
+    return axios.post(baseUrl, newCustomer)
+}
+
+export default { getAll, create }
