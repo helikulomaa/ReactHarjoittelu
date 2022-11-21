@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+#userTable {
+  margin: auto;
+  
+}
+
 .neg {
   color: red;
   background: white;
@@ -38,7 +43,7 @@
   flex-flow: row;
 }
 
-.customerDetails {
+.details {
   background-color: lightgoldenrodyellow;
   border-style: double;
   width: 50%;
@@ -46,6 +51,7 @@
   margin-bottom: 50px;
   border-radius: 10px;
   padding-left: 10%;
+  padding-right: 10%;
 }
 
 .posts {

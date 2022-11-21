@@ -1,21 +1,20 @@
 import './App.css'
 import React, {useState} from 'react'
-import CustomerService from './services/Customer'
+import ProductService from './services/Products'
 
-// props on nimeltään customer
-const Customer = ({customer, editCustomer, setIsPositive, setShowMessage, setMessage, reload, reloadNow}) => { 
+const Product = ({product, editProduct, setIsPositive, setShowMessage, setMessage, reload, reloadNow}) => { 
 
     // Komponentin tilan määrittely. 
     const [showDetails, setShowDetails] =  useState(false)
 
-    const deleteCustomer = (customer) => {
+    const deleteProduct = (product) => {
         // kysytään vahvistus poistoon:
-    let vastaus = window.confirm(`Remove Customer ${customer.companyName}`)
+    let vastaus = window.confirm(`Remove Product ${product.productName}`)
     if (vastaus === true) {
-        CustomerService.remove(customer.customerId)
+        ProductService.remove(product.productId)
         .then(res => {
             if (res.status === 200) {
-            setMessage(`Successfully removed customer ${customer.companyName}`)
+            setMessage(`Successfully removed product ${product.productName}`)
             setIsPositive(true)
             setShowMessage(true)
             window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert
@@ -43,7 +42,7 @@ const Customer = ({customer, editCustomer, setIsPositive, setShowMessage, setMes
     
         } // Jos poisto halutaankin perua
         else {
-        setMessage('Poisto peruttu onnistuneesti.')
+        setMessage(`Poisto peruttu onnistuneesti.`)
             setIsPositive(true)
             setShowMessage(true)
             window.scrollBy(0, -10000) // Scrollataan ylös jotta nähdään alert :)
@@ -58,30 +57,27 @@ const Customer = ({customer, editCustomer, setIsPositive, setShowMessage, setMes
 
   return ( 
     <div> 
-
         <h4 onClick={() => setShowDetails(!showDetails)}>
-            {customer.companyName}, {customer.country}</h4>
+            {product.productName}</h4>
         {showDetails && <div className='details'>
-        <h4>{customer.companyName}</h4>
-        <button onClick={() => deleteCustomer(customer)}>Delete</button>
-        <button onClick={() => editCustomer(customer)}>Edit</button>
+        <h4>{product.productname}</h4>
+        <button onClick={() => deleteProduct(product)}>Delete</button>
+        <button onClick={() => editProduct(product)}>Edit</button>
         <table>
             <thead>
                 <tr>
-                    <th>Contact person</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Country</th>
+                    <th>Prodcut name</th>
+                    <th>Unit price</th>
+                    <th>Units in stock</th>
+                    <th>Units on order</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{customer.contactName}</td>
-                    <td>{customer.phone}</td>
-                    <td>{customer.address}</td>
-                    <td>{customer.city}</td>
-                    <td>{customer.country}</td>
+                    <td>{product.productName}</td>
+                    <td>{product.unitPrice}</td>
+                    <td>{product.unitsInStock}</td>
+                    <td>{product.unitsOnOrder}</td>
                 </tr>
             </tbody>
         </table></div>}
@@ -89,4 +85,4 @@ const Customer = ({customer, editCustomer, setIsPositive, setShowMessage, setMes
   )
 }
 
-export default Customer
+export default Product

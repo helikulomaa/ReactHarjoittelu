@@ -32,6 +32,10 @@ const handleSubmit = (event) => {
         fax: newFax
     }
 
+    // Varmuuden vuoksi tässä vaikka lisäys onnistuu ilmankin
+    const token = localStorage.getItem('token')
+    CustomerService.setToken(token)
+
     CustomerService.create(newCustomer)
     .then(response => {
       if (response.status === 200) {
@@ -98,10 +102,6 @@ const handleSubmit = (event) => {
             <div>
                 <input type="text" value={newPhone} placeholder="Phone"
                     onChange={({ target }) => setNewPhone(target.value)} />
-            </div>
-            <div>
-                <input type="text" value={newFax} placeholder="Fax"
-                    onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
             <input type="submit" value="Save"/>

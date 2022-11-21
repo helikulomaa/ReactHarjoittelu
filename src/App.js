@@ -1,47 +1,79 @@
 import './App.css'
 import Laskuri from './laskuri'
-import Viesti from './viesti'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Posts from './posts'
 import CustomerList from './CustomerList'
+import UserList from './UserList'
+import ProductList from './ProductList'
 import Message from './Message'
+import Login from './Login'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const App = () => { // Toinen tapa on function App (), mutta tämä on tavallisempi tapa nykyään
-  
-  // App-komponentin tila:
-  const [showLaskuri, setShowLaskuri] = useState(false)
-  const [showPosts, setShowPosts] = useState(false)
-  // statet messagen näyttämistä varten:
-  const [showMessage, setShowMessage] = useState(false)
+
+  const [showMessage, setShowMessage] = useState('')
   const [message, setMessage] = useState('')
   const [isPositive, setIsPositive] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState('')
 
-  const huomio = () => {
-    alert("Huomio!")
-  } 
+  useEffect(() => {
+    let storedUser = localStorage.getItem("username")
+    if (storedUser !== null) {
+      setLoggedInUser(storedUser)
+    }
+  }, [])
+
+  const logout = () => {
+    localStorage.clear()
+    setLoggedInUser('')
+  }
 
   return (
     <div className="App">
-      <h1>Hello from React!</h1>
+
+    {!loggedInUser && <Login setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage} setLoggedInUser={setLoggedInUser}/>  }
+
+    { loggedInUser && 
+
+      <Router>
+
+    <Navbar bg="dark" variant="dark">
+      <Nav className='mr-auto'>
+        <Link to={'/Products'} className="nav-link">Products</Link>
+        <Link to={'/Customers'} className="nav-link">Customers</Link>
+        <Link to={'/Users'} className="nav-link">Users</Link>
+        <Link to={'/Laskuri'} className="nav-link">Laskuri</Link>
+        <Link to={'/Posts'} className="nav-link">Typicode posts</Link>
+        <button onClick={() => logout()}>Logout</button>
+        
+        </Nav>
+
+    </Navbar>
+
+      <h1>Northwind Traders</h1>
 
       {showMessage && <Message message={message} isPositive={isPositive} /> }
 
-      <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
+      <Switch>
+      <Route path="/Products">
+        <ProductList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
+        </Route>
+        <Route path="/Customers">
+        <CustomerList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
+        </Route>
+        <Route path="/Users">
+        <UserList setIsPositive={setIsPositive} setMessage={setMessage} setShowMessage={setShowMessage}/>
+        </Route>
+        <Route path="/Laskuri"><Laskuri/></Route>
+        <Route path="/Posts"><Posts/></Route>
+      </Switch>
 
-{/* jos showlakuri on true, rivi näytetään */}
-      {showLaskuri && <Laskuri huomio={huomio}/>} 
-      {showLaskuri && <button onClick={() => setShowLaskuri(!showLaskuri)}>Piilota laskuri</button>}
-      {!showLaskuri && <button onClick={() => setShowLaskuri(!showLaskuri)}>Näytä laskuri</button>} 
-<br></br>
-<br></br>
-      {showPosts && <button onClick={() => setShowPosts(!showPosts)}>Piilota postaukset</button>}      
-      {showPosts && <Posts />}
-      {!showPosts && <button onClick={() => setShowPosts(!showPosts)}>Näytä postaukset</button>}
-
-      
-      
-      <Viesti teksti="Tervehdys app-komponentista!"/>
-
+      </Router>
+    }
     </div>
   )
 }

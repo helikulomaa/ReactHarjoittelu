@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseUrl = "https://localhost:7111/nw/customer"
-const baseUrl = "https://webapiharjoitus20221121201929.azurewebsites.net/nw/customers"
+// const baseUrl = "https://localhost:7111/nw/Products"
+const baseUrl = "https://webapiharjoitus20221121201929.azurewebsites.net/nw/products"
 
 let token = null
 
@@ -19,13 +19,11 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-// newCustomer on paramentri, jonka ympärillä voisi olla sulkeet. Kun parametreja on yksi ei sulkeita tarvita. Jos on useampi tai ei yhtään silloin tarvitaan.
-
-const create = newCustomer => {
+const create = newUser => {
     const config = {
         headers: { Authorization: token},
     }
-    return axios.post(baseUrl, newCustomer, config)
+    return axios.post(baseUrl, newUser, config)
 }
 
 const remove = id => {
@@ -35,11 +33,11 @@ const remove = id => {
     return axios.delete(`${baseUrl}/${id}`, config)
 }
 
-const update = (object) => { // object voi olla suluissa tai voi olla olematta
+const update = (id, object) => {
     const config = {
         headers: { Authorization: token},
     }
-    return axios.put(`${baseUrl}/${object.customerId}`, object, config)
+    return axios.put(`${baseUrl}/${id}`, object, config)
 }
 
 export default { getAll, create, remove, update, setToken }

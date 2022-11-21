@@ -1,9 +1,12 @@
-import './App.css'
+// Tämä ei ole enää käytössä
 
-const Viesti = (props) => ( // yksinkertaisemmat komponentit voi tehdä ilman aaltosulkuja
-    <> 
-      <p>{props.teksti}</p>
-    </>
-  )
 
-export default Viesti
+// import './App.css'
+
+// const Viesti = (props) => ( // yksinkertaisemmat komponentit voi tehdä ilman aaltosulkuja
+//     <> 
+//       <p>{props.teksti}</p>
+//     </>
+//   )
+
+// export default Viesti
