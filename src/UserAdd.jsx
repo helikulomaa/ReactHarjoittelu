@@ -2,6 +2,7 @@ import './App.css'
 import React, {useState} from 'react'
 import UserService from './services/User' // viittaus tiedostoon, jossa hakutehdään
 import md5 from 'md5'
+// import Viesti from './viesti'
 
 const UserAdd = ({setLisäystila, setIsPositive, setShowMessage, setMessage}) => { 
 
@@ -13,10 +14,14 @@ const UserAdd = ({setLisäystila, setIsPositive, setShowMessage, setMessage}) =>
     const [newAccesslevelId, setNewAccesslevelId] = useState(2)
     const [newUsername, setNewUsername] = useState('')
     const [newPassword, setNewPassword] = useState('')
+    // const [newPasswordAgain, setNewPasswordAgain] = useState('')
+    // const [passwordCorrect, setPasswordCorrect] = useState('')
+    // const [syotettyPassword, setSyotettyPassword] = useState('')
 
 // onSubmit tapahtumankäsittelijä funktio
 const handleSubmit = (event) => {
     event.preventDefault()
+
     var newUser = {
       firstname: newFirstname,
       lastname: newLastname,
@@ -24,9 +29,15 @@ const handleSubmit = (event) => {
       accesslevelId: parseInt(newAccesslevelId),
       username: newUsername,
       password: md5(newPassword) // Salataan md5 kirjaston metodilla
+      // syotettyPassword: newPassword,
+      // passwordAgain: newPasswordAgain
   }
   
-  console.log(newUser)
+  // if (newPassword === newPasswordAgain) {
+  //   setPasswordCorrect(true)
+  // } else {
+  //   setPasswordCorrect(false)
+  // }
 
   UserService.create(newUser)
   .then(response => {
@@ -72,6 +83,7 @@ return (
               <input type="email" value={newEmail} placeholder="Email"
                   onChange={({ target }) => setNewEmail(target.value)} />
           </div>
+          <label>Access level id (1 = admin, 2 = basic user)</label>
           <div>
               <input type="number" value={newAccesslevelId} placeholder="Access level"
                   onChange={({ target }) => setNewAccesslevelId(target.value)} />
@@ -80,10 +92,17 @@ return (
               <input type="text" value={newUsername} placeholder="Username"
                   onChange={({ target }) => setNewUsername(target.value)} />
           </div>
+          {/* {!passwordCorrect && <Viesti teksti="Insert same password to both fields"/>} */}
           <div>
               <input type="password" value={newPassword} placeholder="Password"
                   onChange={({ target }) => setNewPassword(target.value)} />
           </div>
+          {/* <div>
+              <input type="password" value={newPasswordAgain} placeholder="Password again"
+                  onChange={({ target }) => setNewPasswordAgain(target.value)} />
+          </div>
+          
+          {passwordCorrect && <Viesti teksti="password ok"/>} */}
           
        <input type='submit' value='save' />
        <input type='button' value='back' onClick={() => setLisäystila(false)} />

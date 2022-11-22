@@ -3,17 +3,18 @@ import React, {useState} from 'react'
 import LoginService from './services/Aut'
 import md5 from 'md5'
 
-const Login = ({setIsPositive, setShowMessage, setMessage, setLoggedInUser}) => { 
+const Login = ({setIsPositive, setShowMessage, setMessage, setLoggedInUser, setLoggedInUserAdmin}) => { 
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    
 
 // onSubmit tapahtumankäsittelijä funktio
 const handleSubmit = (event) => {
     event.preventDefault()
     var userForAuth = {
       username: username,
-      password: md5(password) // Salataan md5 kirjaston metodilla
+      password: md5(password), // Salataan md5 kirjaston metodilla
   }
 
   LoginService.authenticate(userForAuth)
@@ -25,7 +26,11 @@ const handleSubmit = (event) => {
         localStorage.setItem("token", response.data.token)
 
         // Asetetaan app-komponentissa olevaan stateen
-        setLoggedInUser(response.data.username)
+        if (response.data.accesslevelId === 1) {
+          setLoggedInUserAdmin(response.data.username)
+        } else {
+           setLoggedInUser(response.data.username)       
+        }
         
      setMessage(`Loggen in as: ${response.data.username}`)
      setIsPositive(true)
